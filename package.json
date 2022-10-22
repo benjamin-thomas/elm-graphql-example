@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "api": "elm-graphql https://elm-graphql.herokuapp.com/api --base StarWars"
+  },
+  "devDependencies": {
+    "@dillonkearns/elm-graphql": "^4.3.0"
+  }
+}
