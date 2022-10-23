@@ -1,6 +1,6 @@
 module Explorer exposing (main)
 
-import Html exposing (div)
+import Html exposing (..)
 import UIExplorer
     exposing
         ( UIExplorerProgram
@@ -16,6 +16,6 @@ main =
         defaultConfig
         [ storiesOf
             "Welcome"
-            [ ( "Default", \_ -> Html.text "Welcome to you explorer.", {} )
+            [ ( "Default", \_ -> text "Welcome to you explorer.", {} )
             ]
         ]
