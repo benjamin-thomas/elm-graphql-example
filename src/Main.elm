@@ -5,6 +5,7 @@ import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import Html exposing (..)
+import Html.Attributes exposing (style)
 import Html.Events exposing (onClick)
 import RemoteData exposing (RemoteData(..))
 import StarWars.Enum.Episode exposing (Episode(..))
@@ -82,10 +83,6 @@ type alias Response =
     Maybe HumanData
 
 
-
--- Character
-
-
 type alias Model =
     RemoteData (Graphql.Http.Error Response) Response
 
@@ -112,27 +109,37 @@ update msg _ =
             ( newModel, Cmd.none )
 
 
+viewButtons : List (Html Msg)
+viewButtons =
+    [ button [ onClick (ClickedLoadData "1001") ] [ text "Load data! (1001)" ]
+    , button [ onClick (ClickedLoadData "1004") ] [ text "Load data! (1004)" ]
+    , button [ onClick (ClickedLoadData "999") ] [ text "Load data! (999)" ]
+    ]
+
+
 view : Model -> Html Msg
 view model =
     case model of
         NotAsked ->
             div []
                 [ text "Nothing has been requested..."
-                , br [] []
-                , br [] []
-                , button [ onClick (ClickedLoadData "1001") ] [ text "Load data! (1001)" ]
-                , button [ onClick (ClickedLoadData "1004") ] [ text "Load data! (1004)" ]
-                , button [ onClick (ClickedLoadData "999") ] [ text "Load data! (999)" ]
+                , div [ style "margin-top" "20px" ] viewButtons
                 ]
 
         Loading ->
             text "Loading..."
 
         Failure _ ->
-            text "Oh noes, the request failed!"
+            div []
+                [ p [] [ text "Oh noes, the request failed!" ]
+                , div [ style "margin-top" "20px" ] viewButtons
+                ]
 
         Success Nothing ->
-            text "No human found!"
+            div []
+                [ p [] [ text <| "No human found with this id!" ]
+                , div [ style "margin-top" "20px" ] viewButtons
+                ]
 
         Success (Just human) ->
             div []
@@ -161,6 +168,7 @@ view model =
                                 , ul [] (List.map toLi human.appearsIn)
                                 ]
                     ]
+                , div [ style "margin-top" "20px" ] viewButtons
                 ]
 
 
