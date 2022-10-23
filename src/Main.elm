@@ -5,7 +5,7 @@ import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import Html exposing (..)
-import Html.Attributes exposing (style)
+import Html.Attributes exposing (class, href, rel, style)
 import Html.Events exposing (onClick)
 import RemoteData exposing (RemoteData(..))
 import StarWars.Enum.Episode exposing (Episode(..))
@@ -127,7 +127,7 @@ view model =
                 ]
 
         Loading ->
-            text "Loading..."
+            spinner
 
         Failure _ ->
             div []
@@ -185,11 +185,29 @@ episodeToStr episode =
             "The Return Of The Jedi (1983)"
 
 
+css : String -> Html Msg
+css path =
+    node "link" [ rel "stylesheet", href path ] []
+
+
+view2 : Model -> Html Msg
+view2 model =
+    div []
+        [ css "css/main.css"
+        , view model
+        ]
+
+
+spinner : Html msg
+spinner =
+    div [ class "lds-dual-ring" ] []
+
+
 main : Program () Model Msg
 main =
     Browser.element
         { init = init
         , update = update
         , subscriptions = \_ -> Sub.none
-        , view = view
+        , view = view2
         }
