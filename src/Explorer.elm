@@ -1,6 +1,7 @@
 module Explorer exposing (main)
 
 import Html exposing (..)
+import UI.Button
 import UIExplorer
     exposing
         ( UIExplorerProgram
@@ -17,5 +18,11 @@ main =
         [ storiesOf
             "Welcome"
             [ ( "Default", \_ -> text "Welcome to you explorer.", {} )
+            ]
+        , storiesOf
+            "Buttons"
+            [ ( "Primary", \_ -> UI.Button.primary "OK!", {} )
+            , ( "Default", \_ -> UI.Button.default "Click me!", {} )
+            , ( "Danger", \_ -> UI.Button.danger "Delete me!", {} )
             ]
         ]
