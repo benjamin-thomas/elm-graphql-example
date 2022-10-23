@@ -7,6 +7,7 @@ import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import Html exposing (..)
 import Html.Events exposing (onClick)
 import RemoteData exposing (RemoteData(..))
+import StarWars.Enum.Episode exposing (Episode(..))
 import StarWars.Object
 import StarWars.Object.Human as Human
 import StarWars.Query as Query
@@ -52,6 +53,8 @@ import StarWars.Scalar exposing (Id(..))
 type alias HumanData =
     { name : String
     , homePlanet : Maybe String
+    , avatarUrl : String
+    , appearsIn : List StarWars.Enum.Episode.Episode
     }
 
 
@@ -63,7 +66,11 @@ query n =
 
 humanSelection : SelectionSet HumanData StarWars.Object.Human
 humanSelection =
-    SelectionSet.map2 HumanData Human.name Human.homePlanet
+    SelectionSet.map4 HumanData
+        Human.name
+        Human.homePlanet
+        Human.avatarUrl
+        Human.appearsIn
 
 
 type Msg
@@ -127,10 +134,50 @@ view model =
         Success Nothing ->
             text "No human found!"
 
-        Success (Just humanData) ->
-            text <| "Got data: " ++ humanData.name
+        Success (Just human) ->
+            div []
+                [ h1 [] [ text human.name ]
+                , p []
+                    [ case human.homePlanet of
+                        Nothing ->
+                            text "From unknown origins"
+
+                        Just homePlanet ->
+                            text ("His home planet is: " ++ homePlanet)
+                    ]
+                , div []
+                    [ case human.appearsIn of
+                        [] ->
+                            p [] [ text "No appearences :(" ]
+
+                        _ ->
+                            let
+                                toLi : Episode -> Html msg
+                                toLi episode =
+                                    li [] [ text (episodeToStr episode) ]
+                            in
+                            div []
+                                [ h3 [] [ text "List of appearences..." ]
+                                , ul [] (List.map toLi human.appearsIn)
+                                ]
+                    ]
+                ]
 
 
+episodeToStr : Episode -> String
+episodeToStr episode =
+    case episode of
+        Newhope ->
+            "A New Hope (1977)"
+
+        Empire ->
+            "The Empire Strikes Back (1980)"
+
+        Jedi ->
+            "The Return Of The Jedi (1983)"
+
+
+main : Program () Model Msg
 main =
     Browser.element
         { init = init
