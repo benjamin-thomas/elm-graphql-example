@@ -1,5 +1,7 @@
 module Main exposing (..)
 
+-- elm-live ./src/Main.elm
+
 import Browser
 import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
@@ -13,42 +15,6 @@ import StarWars.Object
 import StarWars.Object.Human as Human
 import StarWars.Query as Query
 import StarWars.Scalar exposing (Id(..))
-
-
-
-{-
-      import Graphql.Operation exposing (RootQuery)
-      import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
-      import StarWars.Object
-      import StarWars.Object.Human as Human
-      import StarWars.Query as Query
-      import StarWars.Scalar exposing (Id(..))
-
-
-      query : SelectionSet (Maybe HumanData) RootQuery
-      query =
-          Query.human { id = Id "1001" } humanSelection
-
-
-      type alias HumanData =
-          { name : String
-          , homePlanet : Maybe String
-          }
-
-
-      humanSelection : SelectionSet HumanData StarWars.Object.Human
-      humanSelection =
-          SelectionSet.map2 HumanData
-              Human.name
-              Human.homePlanet
-
-
-   makeRequest : Cmd Msg
-   makeRequest =
-       query
-           |> Graphql.Http.queryRequest "https://elm-graphql.herokuapp.com"
-           |> Graphql.Http.send (RemoteData.fromResult >> GotResponse)
--}
 
 
 type alias HumanData =
