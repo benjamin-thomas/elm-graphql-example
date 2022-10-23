@@ -2,3 +2,5 @@ node_modules
 elm-stuff
 index.html
 ui-explorer/public/explorer.js
+explorer.html
+explorer.js

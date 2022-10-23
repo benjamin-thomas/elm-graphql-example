@@ -1,6 +1,6 @@
 module Explorer exposing (main)
 
-import Html
+import Html exposing (div)
 import UIExplorer
     exposing
         ( UIExplorerProgram
@@ -10,7 +10,7 @@ import UIExplorer
         )
 
 
-main : UIExplorerProgram {} () {}
+main : UIExplorerProgram {} () {} ()
 main =
     explore
         defaultConfig
