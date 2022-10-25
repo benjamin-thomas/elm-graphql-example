@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (HumanData, Model, Msg(..), Response, main)
 
 -- elm-live ./src/Main.elm
 
@@ -6,7 +6,7 @@ import Browser
 import Graphql.Http
 import Graphql.Operation exposing (RootQuery)
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
-import Html exposing (..)
+import Html exposing (Html, button, div, h1, h3, li, node, p, text, ul)
 import Html.Attributes exposing (class, href, rel, style)
 import Html.Events exposing (onClick)
 import RemoteData exposing (RemoteData(..))

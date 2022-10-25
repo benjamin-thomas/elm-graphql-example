@@ -1,6 +1,6 @@
-module UI.Button exposing (..)
+module UI.Button exposing (danger, default, primary)
 
-import Html exposing (..)
+import Html exposing (Html, button, text)
 import Html.Attributes exposing (style)
 
 

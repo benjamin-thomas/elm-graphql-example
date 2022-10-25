@@ -1,6 +1,6 @@
 module Explorer exposing (main)
 
-import Html exposing (..)
+import Html exposing (text)
 import UI.Button
 import UIExplorer
     exposing
